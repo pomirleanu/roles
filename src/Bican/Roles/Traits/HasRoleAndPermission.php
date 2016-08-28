@@ -45,7 +45,7 @@ trait HasRoleAndPermission
     /**
      * Check if the user has a role or roles.
      *
-     * @param int|string|array $role
+     * @param string $role
      * @param bool $all
      * @return bool
      */
@@ -100,7 +100,7 @@ trait HasRoleAndPermission
      */
     public function hasRole($role)
     {
-        return $this->getRoles()->contains(function ($key, $value) use ($role) {
+        return $this->getRoles()->contains(function($key, $value) use ($role) {
             return $role == $value->id || Str::roleIs($role, $value->slug);
         });
     }
@@ -193,7 +193,7 @@ trait HasRoleAndPermission
     /**
      * Check if the user has a permission or permissions.
      *
-     * @param int|string|array $permission
+     * @param string $permission
      * @param bool $all
      * @return bool
      */
@@ -248,7 +248,7 @@ trait HasRoleAndPermission
      */
     public function hasPermission($permission)
     {
-        return $this->getPermissions()->contains(function ($key, $value) use ($permission) {
+        return $this->getPermissions()->contains(function($key, $value) use ($permission) {
             return $permission == $value->id || Str::roleIs($permission, $value->slug);
         });
     }
@@ -338,7 +338,7 @@ trait HasRoleAndPermission
      */
     private function isPretendEnabled()
     {
-        return (bool)config('roles.pretend.enabled');
+        return (bool) config('roles.pretend.enabled');
     }
 
     /**
@@ -349,7 +349,7 @@ trait HasRoleAndPermission
      */
     private function pretend($option)
     {
-        return (bool)config('roles.pretend.options.' . $option);
+        return (bool) config('roles.pretend.options.' . $option);
     }
 
     /**
@@ -361,7 +361,7 @@ trait HasRoleAndPermission
      */
     private function getMethodName($methodName, $all)
     {
-        return ((bool)$all) ? $methodName . 'All' : $methodName . 'One';
+        return ((bool) $all) ? $methodName . 'All' : $methodName . 'One';
     }
 
     /**
