@@ -212,7 +212,7 @@ trait HasRoleAndPermission
      * @param int|string|array $permission
      * @return bool
      */
-    public function mayOne(($permission)
+    public function mayOne($permission)
     {
         foreach ($this->getArrayFrom($permission) as $permission) {
             if ($this->hasPermission($permission)) {
@@ -384,15 +384,13 @@ trait HasRoleAndPermission
      */
     public function __call($method, $parameters)
     {
-        switch (starts_with($method)) {
-            case 'roleIs':
-                return $this->roleIs(snake_case(substr($method, 2), config('roles.separator')));
-            case 'may':
-                return $this->may(snake_case(substr($method, 3), config('roles.separator')));
-            case 'allowed':
-                return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
-            default:
-                return parent::__call($method, $parameters);
+        if (starts_with($method, 'roleIs')) {
+            return $this->is(snake_case(substr($method, 2), config('roles.separator')));
+        } elseif (starts_with($method, 'may')) {
+            return $this->can(snake_case(substr($method, 3), config('roles.separator')));
+        } elseif (starts_with($method, 'allowed')) {
+            return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
         }
+        return parent::__call($method, $parameters);
     }
 }
