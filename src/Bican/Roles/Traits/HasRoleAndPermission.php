@@ -49,7 +49,7 @@ trait HasRoleAndPermission
      * @param bool $all
      * @return bool
      */
-    public function is($role, $all = false)
+    public function roleIs($role, $all = false)
     {
         if ($this->isPretendEnabled()) {
             return $this->pretend('is');
@@ -101,7 +101,7 @@ trait HasRoleAndPermission
     public function hasRole($role)
     {
         return $this->getRoles()->contains(function ($key, $value) use ($role) {
-            return $role == $value->id || Str::is($role, $value->slug);
+            return $role == $value->id || Str::roleIs($role, $value->slug);
         });
     }
 
@@ -249,7 +249,7 @@ trait HasRoleAndPermission
     public function hasPermission($permission)
     {
         return $this->getPermissions()->contains(function ($key, $value) use ($permission) {
-            return $permission == $value->id || Str::is($permission, $value->slug);
+            return $permission == $value->id || Str::roleIs($permission, $value->slug);
         });
     }
 
@@ -385,7 +385,7 @@ trait HasRoleAndPermission
     public function __call($method, $parameters)
     {
         if (starts_with($method, 'is')) {
-            return $this->is(snake_case(substr($method, 2), config('roles.separator')));
+            return $this->roleIs(snake_case(substr($method, 2), config('roles.separator')));
         } elseif (starts_with($method, 'can')) {
             return $this->can(snake_case(substr($method, 3), config('roles.separator')));
         } elseif (starts_with($method, 'allowed')) {
