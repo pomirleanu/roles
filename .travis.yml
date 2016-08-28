@@ -8,8 +8,6 @@ before_script:
   - travis_retry composer install --no-interaction
   - sleep 10
 
-script: phpunit
-
 notifications:
   on_success: never
   on_failure: always
