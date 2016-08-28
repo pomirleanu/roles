@@ -1,5 +1,5 @@
 {
-    "name": "bican/roles",
+    "name": "pomirleanu/roles",
     "description": "Powerful package for handling roles and permissions in Laravel 5.",
     "keywords": ["roles", "permissions", "acl", "auth", "laravel", "illuminate"],
     "license": "MIT",
@@ -7,6 +7,10 @@
         {
             "name": "Roman Bičan",
             "email": "romanbican@seznam.cz"
+        },
+        {
+            "name": "Pomirleanu Florentin Cristinel",
+            "email": "pomirleanu.florentin@gmail.com"
         }
     ],
     "require": {
