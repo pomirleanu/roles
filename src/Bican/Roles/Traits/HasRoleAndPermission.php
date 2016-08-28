@@ -52,10 +52,10 @@ trait HasRoleAndPermission
     public function roleIs($role, $all = false)
     {
         if ($this->isPretendEnabled()) {
-            return $this->pretend('is');
+            return $this->pretend('roleIs');
         }
 
-        return $this->{$this->getMethodName('is', $all)}($role);
+        return $this->{$this->getMethodName('roleIs', $all)}($role);
     }
 
     /**
@@ -384,14 +384,15 @@ trait HasRoleAndPermission
      */
     public function __call($method, $parameters)
     {
-        if (starts_with($method, 'is')) {
-            return $this->roleIs(snake_case(substr($method, 2), config('roles.separator')));
-        } elseif (starts_with($method, 'can')) {
-            return $this->can(snake_case(substr($method, 3), config('roles.separator')));
-        } elseif (starts_with($method, 'allowed')) {
-            return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
+        switch (starts_with($method)) {
+            case 'roleIs':
+                return $this->roleIs(snake_case(substr($method, 2), config('roles.separator')));
+            case 'can':
+                return $this->can(snake_case(substr($method, 3), config('roles.separator')));
+            case 'allowed':
+                return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
+            default:
+                return parent::__call($method, $parameters);
         }
-
-        return parent::__call($method, $parameters);
     }
 }
