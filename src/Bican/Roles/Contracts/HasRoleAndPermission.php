@@ -127,7 +127,7 @@ interface HasRoleAndPermission
      * @param int|string|array $permission
      * @return bool
      */
-    public function canOne($permission);
+    public function mayOne(($permission);
 
     /**
      * Check if the user has a permission.

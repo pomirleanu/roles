@@ -246,7 +246,7 @@ if ($user->canDeleteUsers()) {
 }
 ```
 
-You can check for multiple permissions the same way as roles. You can make use of additional methods like `canOne`, `canAll` or `hasPermission`.
+You can check for multiple permissions the same way as roles. You can make use of additional methods like `mayOne(`, `mayAll(` or `hasPermission`.
 
 ### Permissions Inheriting
 

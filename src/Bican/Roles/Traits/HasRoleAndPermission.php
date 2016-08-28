@@ -200,10 +200,10 @@ trait HasRoleAndPermission
     public function may($permission, $all = false)
     {
         if ($this->isPretendEnabled()) {
-            return $this->pretend('can');
+            return $this->pretend('may');
         }
 
-        return $this->{$this->getMethodName('can', $all)}($permission);
+        return $this->{$this->getMethodName('may', $all)}($permission);
     }
 
     /**
@@ -212,7 +212,7 @@ trait HasRoleAndPermission
      * @param int|string|array $permission
      * @return bool
      */
-    public function canOne($permission)
+    public function mayOne(($permission)
     {
         foreach ($this->getArrayFrom($permission) as $permission) {
             if ($this->hasPermission($permission)) {
@@ -387,7 +387,7 @@ trait HasRoleAndPermission
         switch (starts_with($method)) {
             case 'roleIs':
                 return $this->roleIs(snake_case(substr($method, 2), config('roles.separator')));
-            case 'can':
+            case 'may':
                 return $this->may(snake_case(substr($method, 3), config('roles.separator')));
             case 'allowed':
                 return $this->allowed(snake_case(substr($method, 7), config('roles.separator')), $parameters[0], (isset($parameters[1])) ? $parameters[1] : true, (isset($parameters[2])) ? $parameters[2] : 'user_id');
