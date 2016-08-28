@@ -165,9 +165,9 @@ trait HasRoleAndPermission
         }
 
         return $permissionModel::select(['permissions.*', 'permission_role.created_at as pivot_created_at', 'permission_role.updated_at as pivot_updated_at'])
-                ->join('permission_role', 'permission_role.permission_id', '=', 'permissions.id')->join('roles', 'roles.id', '=', 'permission_role.role_id')
-                ->whereIn('roles.id', $this->getRoles()->lists('id')->toArray()) ->orWhere('roles.level', '<', $this->level())
-                ->groupBy(['permissions.id', 'pivot_created_at', 'pivot_updated_at']);
+            ->join('permission_role', 'permission_role.permission_id', '=', 'permissions.id')->join('roles', 'roles.id', '=', 'permission_role.role_id')
+            ->whereIn('roles.id', $this->getRoles()->lists('id')->toArray())->orWhere('roles.level', '<', $this->level())
+            ->groupBy(['permissions.id', 'pivot_created_at', 'pivot_updated_at']);
     }
 
     /**
@@ -187,7 +187,7 @@ trait HasRoleAndPermission
      */
     public function getPermissions()
     {
-        return (!$this->permissions) ? $this->permissions = $this->rolePermissions()->get()->merge($this->userPermissions()->get()) : $this->permissions;
+        return (!$this->permissions) ? $this->permissions = $this->rolePermissions()->get()->merge(call_user_func([config('roles.models.permission'), 'get'])) : $this->permissions;
     }
 
     /**
@@ -327,7 +327,7 @@ trait HasRoleAndPermission
     public function detachAllPermissions()
     {
         $this->permissions = null;
-        
+
         return $this->userPermissions()->detach();
     }
 
@@ -338,7 +338,7 @@ trait HasRoleAndPermission
      */
     private function isPretendEnabled()
     {
-        return (bool) config('roles.pretend.enabled');
+        return (bool)config('roles.pretend.enabled');
     }
 
     /**
@@ -349,7 +349,7 @@ trait HasRoleAndPermission
      */
     private function pretend($option)
     {
-        return (bool) config('roles.pretend.options.' . $option);
+        return (bool)config('roles.pretend.options.' . $option);
     }
 
     /**
@@ -361,7 +361,7 @@ trait HasRoleAndPermission
      */
     private function getMethodName($methodName, $all)
     {
-        return ((bool) $all) ? $methodName . 'All' : $methodName . 'One';
+        return ((bool)$all) ? $methodName . 'All' : $methodName . 'One';
     }
 
     /**
