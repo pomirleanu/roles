@@ -237,7 +237,7 @@ $user->detachAllPermissions();
 ### Checking For Permissions
 
 ```php
-if ($user->can('create.users') { // you can pass an id or slug
+if ($user->may('create.users') { // you can pass an id or slug
     //
 }
 
@@ -298,7 +298,7 @@ There are four Blade extensions. Basically, it is replacement for classic if sta
     // user is admin
 @endrole
 
-@permission('edit.articles') // @if(Auth::check() && Auth::user()->can('edit.articles'))
+@permission('edit.articles') // @if(Auth::check() && Auth::user()->may('edit.articles'))
     // user can edit articles
 @endpermission
 
