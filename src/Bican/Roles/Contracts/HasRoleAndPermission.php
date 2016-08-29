@@ -35,7 +35,7 @@ interface HasRoleAndPermission
      * @param int|string|array $role
      * @return bool
      */
-    public function isAll($role);
+    public function roleIsAll($role);
 
     /**
      * Check if the user has at least one role.
@@ -43,7 +43,7 @@ interface HasRoleAndPermission
      * @param int|string|array $role
      * @return bool
      */
-    public function isOne($role);
+    public function roleIsOne($role);
 
     /**
      * Check if the user has role.

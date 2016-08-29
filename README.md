@@ -161,7 +161,7 @@ if ($user->roleIs('admin|moderator')) {
     /*
     | Or alternatively:
     | $user->roleIs('admin, moderator'), $user->roleIs(['admin', 'moderator']),
-    | $user->isOne('admin|moderator'), $user->isOne('admin, moderator'), $user->isOne(['admin', 'moderator'])
+    | $user->roleIsOne('admin|moderator'), $user->roleIsOne('admin, moderator'), $user->roleIsOne(['admin', 'moderator'])
     */
 
     // if user has at least one role
@@ -171,7 +171,7 @@ if ($user->roleIs('admin|moderator', true)) {
     /*
     | Or alternatively:
     | $user->roleIs('admin, moderator', true), $user->roleIs(['admin', 'moderator'], true),
-    | $user->isAll('admin|moderator'), $user->isAll('admin, moderator'), $user->isAll(['admin', 'moderator'])
+    | $user->roleIsAll('admin|moderator'), $user->roleIsAll('admin, moderator'), $user->roleIsAll(['admin', 'moderator'])
     */
 
     // if user has all roles
