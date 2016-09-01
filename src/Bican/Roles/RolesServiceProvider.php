@@ -44,7 +44,7 @@ class RolesServiceProvider extends ServiceProvider
         $blade = $this->app['view']->getEngineResolver()->resolve('blade')->getCompiler();
 
         $blade->directive('role', function($expression) {
-            return "<?php if (Auth::check() && Auth::user()->is{$expression}): ?>";
+            return "<?php if (Auth::check() && Auth::user()->roleIs{$expression}): ?>";
         });
 
         $blade->directive('endrole', function() {
@@ -52,7 +52,7 @@ class RolesServiceProvider extends ServiceProvider
         });
 
         $blade->directive('permission', function($expression) {
-            return "<?php if (Auth::check() && Auth::user()->can{$expression}): ?>";
+            return "<?php if (Auth::check() && Auth::user()->may{$expression}): ?>";
         });
 
         $blade->directive('endpermission', function() {
